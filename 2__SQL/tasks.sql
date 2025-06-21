@@ -9,16 +9,16 @@ DROP TABLE IF EXISTS order_items, orders, customers;
  */
 
 CREATE TABLE IF NOT EXISTS customers (
-id SERIAL PRIMARY KEY,
-name VARCHAR(100) NOT NULL,
-email VARCHAR(100) NOT NULL UNIQUE
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS orders (
- id SERIAL PRIMARY KEY,
- customer_id INT NOT NULL,
- order_date DATE NOT NULL,
- FOREIGN KEY (customer_id) REFERENCES customers (id)
+    id SERIAL PRIMARY KEY,
+    customer_id INT NOT NULL,
+    order_date DATE NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES customers (id)
 );
 
 CREATE TABLE IF NOT EXISTS order_items (
