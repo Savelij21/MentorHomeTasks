@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS order_items (
  */
 
 INSERT INTO customers (name, email) VALUES
-    ('Иван Иванов', 'john@example.com'),
+    ('Иван Иванов', 'ivan@example.com'),
     ('Alex', 'alex@example.com'),
     ('Anny', 'anny@example.com');
 
@@ -64,20 +64,6 @@ INSERT INTO order_items (order_id, product_name, quantity, price) VALUES
 
 /*
  Этап 3: Запросы на чтение
-
-Задание 1: Простая фильтрация
-Цель: Вывести список заказов клиента с конкретным именем (например, "Иван Иванов").
-Ожидаемый результат: Таблица с колонками id, order_date, где каждая строка — это один заказ нужного клиента.
-
-Задание 2: Фильтрация + сортировка
-Цель: Получить список всех товаров из конкретного заказа (например, заказ с ID = 3), отсортированный по цене по убыванию.
-Ожидаемый результат: Таблица с колонками product_name, quantity, price, отсортированная по убыванию цены.
-
-Задание 3: Группировка + фильтрация
-Цель: Вывести список клиентов и общую сумму, которую они потратили во всех заказах. Показать только тех клиентов, у кого сумма покупок больше 5000.
-Ожидаемый результат: Таблица с колонками name, total_spent, где total_spent — это сумма (цена × количество) всех товаров во всех заказах клиента. Должны отображаться только клиенты, у которых total_spent > 5000.
-
-
  */
 
 SELECT orders.id, orders.order_date FROM orders
@@ -85,13 +71,12 @@ SELECT orders.id, orders.order_date FROM orders
 WHERE customers.name = 'John';
 
 
-SELECT product_name, quantity, price
-FROM order_items
+SELECT product_name, quantity, price FROM order_items
 WHERE order_id = 2
 ORDER BY price DESC;
 
-SELECT customers.name, SUM(order_items.price * order_items.quantity) AS total_spent
-FROM customers
+
+SELECT customers.name, SUM(order_items.price * order_items.quantity) AS total_spent FROM customers
     JOIN orders ON customers.id = orders.customer_id
     JOIN order_items ON orders.id = order_items.order_id
 GROUP BY customers.id
